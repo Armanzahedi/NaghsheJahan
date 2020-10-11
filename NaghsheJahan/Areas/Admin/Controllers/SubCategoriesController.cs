@@ -27,7 +27,6 @@ namespace NaghsheJahan.Areas.Admin.Controllers
         // GET: Admin/SubCategories
         public ViewResult Index()
         {
-            TempData["UploadedImage"] = null; // In case we return from cancelled create or edit
             ViewData["CategoryId"] = new SelectList(_repository.GetCategories(), "Id", "Title");
             return View();
         }
@@ -52,6 +51,7 @@ namespace NaghsheJahan.Areas.Admin.Controllers
         // GET: Admin/SubCategories/Create
         public IActionResult Create()
         {
+            TempData["UploadedImage"] = null; // Just in case
             ViewData["CategoryId"] = new SelectList(_repository.GetCategories(), "Id", "Title");
             return View();
         }
