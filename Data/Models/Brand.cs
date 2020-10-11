@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace Data.Models
+{
+    public class Brand : IEntity
+    {
+        public int Id { get; set; }
+        public DateTime Created_at { get; set; }
+        public DateTime Updated_at { get; set; }
+
+        [MaxLength(300)]
+        public string Title { get; set; }
+        public string Descripiton { get; set; }
+
+        [MaxLength(300)]
+        public string ImageName { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+
+    }
+}

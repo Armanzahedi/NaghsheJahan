@@ -1,0 +1,38 @@
+﻿@model Logic.ViewModels.SubCategoriesTableViewModel
+
+            <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
+                <thead>
+                    <tr>
+                        <th title="Field #2">نام</th>
+                        <th title="Field #3">توضیح</th>
+                        <th title="Field #4">دسته بندی</th>
+                        <th title="Field #5">دستورات</th>
+                        <th title="Empty"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SubCategories.Count == 0 || Model == null)
+                    {
+                        <tr>دسته ای پیدا نشد.</tr>
+                    }
+                    else
+                    {
+                        foreach (var subCategory in Model.SubCategories)
+                        {
+                            <tr>
+                                <td>@subCategory.Title</td>
+                                <td>@subCategory.Description</td>
+                                <td>@subCategory.Category.Title</td>
+                                <td>
+                                    <a class='btn btn-sm btn-clean btn-icon mr-2' href='/Admin/SubCategories/Edit/@subCategory.Id'><i class='far fa-edit'></i></a>
+                                    <a class='btn btn-sm btn-clean btn-icon' href='/Admin/'><i class='far fa-trash-alt'></i></a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <partial name="_PaginationPartial" model="@Model.Pagination">
+                <!--end: Datatable-->

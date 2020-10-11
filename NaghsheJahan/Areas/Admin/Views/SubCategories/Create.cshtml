@@ -1,0 +1,80 @@
+﻿@model Data.Models.SubCategory
+@{
+    ViewData["Title"] = "کنترل محصولات";
+    ViewData["SubHeader"] = "دسته بندی ریز";
+}
+<input type="hidden" id="nav_active" value="productcontrol">
+<input type="hidden" id="nav_item_active" value="subcategories">
+<div class="col-lg-6">
+    <div class="card card-custom gutter-b example example-compact">
+        <div class="card-header">
+            <h3 class="card-title">افزودن دسته بندی</h3>
+        </div>
+        <form class="form" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label class="col-label">تصویر</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="dropzone dropzone-default" id="dropzone">
+                            <div class="dropzone-msg dz-message needsclick">
+                                <h3 class="dropzone-msg-title">آپلود تصویر</h3>
+                                <span class="dropzone-msg-desc">برای آپلود تصویر را اینجا بکشید یا کلیک کنید.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="ثبت" class="btn btn-primary mr-2" />
+                <a asp-action="Index" class="btn btn-secondary">برگشت</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var imageUpload = function () {
+            var upload = function () {
+                $('#dropzone').dropzone({
+                    url: "/Admin/SubCategories/FileUpload",
+                    addRemoveLinks: true,
+                    paramName: "file",
+                    maxFiles: 1,
+                    maxFilesize: 5, // MB
+                    acceptedFiles: "image/*,application/pdf,.psd",
+                    addRemoveLinks: true,
+                    accept: function (file, done) {
+                        done();
+                    }
+                });
+            }
+            return {
+                init: function () {
+                    upload();
+                }
+            };
+        }();
+
+        KTUtil.ready(function () {
+            imageUpload.init();
+        });
+
+    </script>
+
+}
